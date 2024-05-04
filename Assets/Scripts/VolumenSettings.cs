@@ -10,20 +10,28 @@ public class VolumenSettings : MonoBehaviour
     [SerializeField] private Slider SFXSlider;
     [SerializeField] private Slider VolumenSlider;
     public AudioSettings audioSettings;
+
     private static VolumenSettings instance;
+    public static VolumenSettings Instance
+    {
+        get { return instance; }
+    }
 
     private void Awake()
     {
         if (instance == null)
         {
+         
             instance = this;
-            DontDestroyOnLoad(gameObject); 
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); 
+            
+            Destroy(gameObject);
         }
     }
+
     private void Start()
     {
         if (audioSettings == null)
@@ -31,6 +39,7 @@ public class VolumenSettings : MonoBehaviour
             Debug.LogError("No se ha asignado el Scriptable Object AudioSettings en el Inspector.");
             return;
         }
+
         if (PlayerPrefs.HasKey("musicVolume"))
         {
             LoadVolumen();
@@ -49,7 +58,6 @@ public class VolumenSettings : MonoBehaviour
 
         PlayerPrefs.SetFloat("VolumeGeneral", volume);
 
-     
         musicSlider.value = volume;
         SFXSlider.value = volume;
     }
@@ -73,7 +81,6 @@ public class VolumenSettings : MonoBehaviour
         float volume = PlayerPrefs.GetFloat("VolumeGeneral");
         VolumenSlider.value = volume;
 
-       
         SetVolumeGeneral();
     }
 }

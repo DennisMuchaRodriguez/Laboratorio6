@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject volumenMenu;
+    
+ 
     private static GameManager instance;
 
     private void Awake()
@@ -23,5 +25,7 @@ public class GameManager : MonoBehaviour
     {
         
         volumenMenu.SetActive(!volumenMenu.activeSelf);
+      
+      
     }
 }
