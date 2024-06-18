@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EfectoSalirEntrar : MonoBehaviour
 {
-    public AudioClip enterSound;
+  public AudioClip enterSound;
     public AudioClip exitSound;
     public AudioSource audioSource;
     public Image fadeImage;
@@ -14,6 +14,8 @@ public class EfectoSalirEntrar : MonoBehaviour
     public float fadeDelay = 2f;
     private Color originalColor;
     private Coroutine fadeCoroutine;
+
+    public GameObject[] objectsToActivate; 
 
     private void Start()
     {
@@ -31,6 +33,9 @@ public class EfectoSalirEntrar : MonoBehaviour
                 StopCoroutine(fadeCoroutine); 
             }
             fadeCoroutine = StartCoroutine(FadeAndReset());
+
+            
+            ActivateObjects();
         }
     }
 
@@ -61,7 +66,22 @@ public class EfectoSalirEntrar : MonoBehaviour
             yield return null;
         }
 
-        
         fadeImage.color = originalColor;
+    }
+
+    private void ActivateObjects()
+    {
+        for (int i = 0; i < objectsToActivate.Length; i++)
+        {
+            GameObject obj = objectsToActivate[i];
+
+        
+            BotDialogo npcMovement = obj.GetComponent<BotDialogo>();
+            if (npcMovement != null)
+            {
+                npcMovement.StartPatrol(); 
+            }
+
+        }
     }
 }
